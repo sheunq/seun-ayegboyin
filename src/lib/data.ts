@@ -2677,6 +2677,114 @@ model_quantity=LinearRegression()
 model_quantity.fit(x,y)
 model_quantity.coef_
         `}
+              ,
+      {
+        id: 20,
+        slug: 'Ebay-Sneakers-WebScraping-Using-Selenium',
+        title: 'Ebay Sneakers WebScraping Using Selenium',
+        description: "This project demonstrates the use of Python-based web scraping to extract product information from eBay. The focus was on collecting structured data such as item titles, prices, and condition from search result pages, enabling price analysis and market research.",
+        longDescription: `<section style="font-family: Arial, sans-serif; margin: 20px;">
+    <h2 style="color: #2c3e50;">eBay Product Price & Details Web Scraping</h2>
+    <p>
+        This project demonstrates the use of Python-based web scraping to extract product information from <strong>eBay</strong>. 
+        The focus was on collecting structured data such as <em>item titles, prices, and condition</em> from search result pages, enabling 
+        price analysis and market research.
+    </p>
+
+    <h3 style="color: #34495e;">Key Features:</h3>
+    <ul>
+        <li><strong>Data Extraction:</strong> Used <code>Selenium</code> to navigate eBay pages and extract product details dynamically.</li>
+        <li><strong>Automation:</strong> Configured scripts to scrape multiple pages with minimal manual intervention.</li>
+        <li><strong>Structured Output:</strong> Stored results in a clean, structured format for further processing and analysis.</li>
+    </ul>
+
+    <h3 style="color: #34495e;">Technologies Used:</h3>
+    <ul>
+        <li>Python – Core programming language</li>
+        <li>Selenium – Browser automation for dynamic page scraping</li>
+        <li>Pandas – Data storage and cleaning</li>
+    </ul>
+
+    <h3 style="color: #34495e;">Business Impact:</h3>
+    <ul>
+        <li><strong>Competitive Analysis:</strong> Enables price comparison with competitors for strategic pricing decisions.</li>
+        <li><strong>Market Insights:</strong> Identifies trends in product availability, condition, and pricing.</li>
+        <li><strong>Operational Efficiency:</strong> Automates a process that would take hours if done manually.</li>
+    </ul>
+</section>
+
+`,
+        images: ['/images/ebay.png'],
+        tags: ['WebScraping', 'BeautifulSoup', 'Selenium', 'Scrapy'],
+        link: '/project/customer-churn-prediction',
+        sourceCodeLink: 'https://github.com/sheunq/Sneakers-Scraping-on-Ebay',
+        aiHint: 'data analytics',
+        sentimentAnalysisSection: {
+    // Suggested code may be subject to a license. Learn more: ~LicenseLog:1192901264.
+          title: '',
+          content: ""
+        },
+        code: `
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+#from selenium.webdriver.support.ui import FluentWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
+from time import sleep
+import requests
+import pandas as pd
+import string
+import time
+import numpy as np
+import re
+    
+  # Load the dataset/ webscraping
+  
+driver.get('https://www.ebay.com')
+
+all_url=[]
+
+sneakers_name=[]
+
+price=[]
+
+
+
+specification = []
+
+sleep(4)
+driver.find_element(By.XPATH,"/html/body/div[4]/div/div/div/div[1]/header/section/form/div[1]/div/div/input").send_keys("Sneakers")
+driver.find_element(By.XPATH,"/html/body/div[4]/div/div/div/div[1]/header/section/form/div[1]/div/div/input").send_keys(Keys.ENTER)
+
+
+
+all=driver.find_elements(By.XPATH,"/html/body/div/div/div/div/div/ul/li/div/div/div/a")
+for i in range(1,len(all)):
+    all_url.append(all[i].get_attribute('href'))
+
+sleep(5)
+for i in range(len(all_url)):
+    driver.get(all_url[i])
+
+    sleep(5)
+    name=driver.find_element(By.XPATH,"/html/body/div/main/div/div/div/div/div/div/div/div/div/h1/span").text#driver.find_element(By.XPATH,'/html/body/div[2]/main/div[1]/div[1]/div[4]/div/div/div[2]/div/div[1]/div[1]/h1/span')
+    sneakers_name.append(name)
+    price1=driver.find_element(By.XPATH,"/html/body/div/main/div/div/div/div/div/div/div/div/div[3]/div/div/div/span").text
+    price.append(price1)
+
+
+    #specification
+    all_spec = driver.find_elements(By.XPATH, '/html/body/div/main/div/div/div/div/div/div/div/div/div/div/div/div/div/div[2]/div/div/div[2]/div/div/div')
+    
+    product_data = []  # temporary list for one product
+    for c in all_spec:
+        product_data.append(c.text)
+    
+    specification.append(product_data)
+
+        `}
 ];
 
 const blogPosts: BlogPost[] = [
