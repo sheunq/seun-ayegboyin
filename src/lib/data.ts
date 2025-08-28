@@ -2784,7 +2784,121 @@ for i in range(len(all_url)):
     
     specification.append(product_data)
 
-        `}
+        `},
+
+        {
+    id: 21,
+    slug: 'Uber-Ride-analytics-dashboard-overview',
+    title: 'Uber Ride Analytics Dashboard Overview',
+    description: 'This project involved building an interactive Uber Analytics Dashboard to provide insights into ride bookings, payment methods, vehicle usage, and location-based demand. The dashboard enabled stakeholders to monitor trends in customer behavior, evaluate revenue drivers, and optimize fleet allocation for operational efficiency and strategic planning.',
+
+longDescription: `<section style="font-family: Arial, sans-serif; padding: 20px; max-width: 960px; margin: auto; line-height: 1.6;">
+  <h2 style="color: #2c3e50;">🚖 Uber Ride Analytics Dashboard Overview</h2>
+  <p><strong>Focus Areas:</strong> Booking Value 💰 | Vehicle Type 🚗 | Payment Method 💳 | Location Demand 📍<br>
+     <strong>Period Covered:</strong> Multi-month transactional dataset</p>
+
+  <hr style="margin: 20px 0;">
+
+  <h3 style="color: #34495e;">💰 1. Booking Value & Performance Metrics</h3>
+  <ul>
+    <li><strong>By Customer Rating:</strong> $445K</li>
+    <li><strong>By Payment Method:</strong> $5.22M (7,166 bookings)</li>
+    <li><strong>By Driver Rating:</strong> $64.31K</li>
+  </ul>
+  <p><strong>📌 Insight:</strong><br>
+    Payment method preferences significantly drive revenue (5.22M), while customer/driver ratings have limited direct correlation with booking value.
+  </p>
+
+  <h3 style="color: #34495e;">📍 2. Location-Based Booking Metrics</h3>
+  <ul>
+    <li><strong>Top Zone:</strong> Vile Parle dominates both pickup and dropoff booking values (~55K)</li>
+    <li><strong>Frequency:</strong> Pickup ≈ 2,168 vs Dropoff ≈ 12,000+</li>
+  </ul>
+  <p><strong>📌 Insight:</strong><br>
+    Drop-off locations are revenue hotspots — especially business and commercial hubs. Fleet allocation and surge pricing should be prioritized here.
+  </p>
+
+  <h3 style="color: #34495e;">🚗 3. Vehicle Booking Frequency</h3>
+  <ul>
+    <li><strong>Most Popular:</strong> Auto (2.98K bookings) followed by Go Mini & Bike</li>
+    <li><strong>Premium Categories:</strong> Uber XL & Lux show very low adoption</li>
+    <li><strong>Monthly Trend:</strong> ~3.02K rides, stable but no growth</li>
+  </ul>
+  <p><strong>📌 Insight:</strong><br>
+    Market is highly price-sensitive — low-cost vehicle categories dominate. Premium rides require targeted promotions to boost adoption.
+  </p>
+
+  <h3 style="color: #34495e;">💳 4. Payment Insights</h3>
+  <ul>
+    <li><strong>Cash:</strong> 32%</li>
+    <li><strong>Credit Card:</strong> 30.6%</li>
+    <li><strong>Digital Wallets (UPI, Uber Wallet):</strong> Smaller share but growing</li>
+  </ul>
+  <p><strong>📌 Insight:</strong><br>
+    Cash and cards remain dominant, but digital payments are a growth opportunity. Incentivizing wallet/UPI usage can reduce operational costs.
+  </p>
+
+  <h3 style="color: #34495e;">📈 5. Booking Value Trends</h3>
+  <ul>
+    <li><strong>Ride Distance vs Value:</strong> Declining trend → shorter trips or lower spend per km</li>
+    <li><strong>Customer & Driver Rating vs Value:</strong> Consistent but falling — limited impact on revenue</li>
+  </ul>
+  <p><strong>📌 Insight:</strong><br>
+    Overall decline suggests either seasonality or competitive pressure. Monitoring churn and promotions could help stabilize growth.
+  </p>
+
+  <hr style="margin: 30px 0;">
+
+  <h3 style="color: #2c3e50;">📌 Key Recommendations</h3>
+  <ul>
+    <li><strong>🚀 Address Decline:</strong> Investigate seasonality vs competitor influence behind falling booking values.</li>
+    <li><strong>📱 Push Digital Payments:</strong> Offer cashback/discounts to accelerate UPI & wallet adoption.</li>
+    <li><strong>📍 Optimize Locations:</strong> Focus on top 10 drop-off hubs with driver incentives & surge pricing.</li>
+    <li><strong>🎯 Grow Premium Rides:</strong> Upsell from Auto/Bike users to Go Sedan/Uber XL via loyalty offers.</li>
+    <li><strong>⭐ Improve Experience:</strong> Link customer & driver ratings to rewards to enhance service quality.</li>
+  </ul>
+</section>`,
+    images: [
+      '/images/uber_payment.png',
+      '/images/Uber_home.png',
+      '/images/Uber_vehicle booking value.png',
+      '/images/uber_location.png',
+    ],
+    tags: ['Visualization', 'PowerBI'],
+    link: '/project/sales-forecasting',
+    aiHint: 'financial chart',
+
+    
+    code: `
+
+Vehicle breakdown type = SUMMARIZE(ncr_ride_bookings,ncr_ride_bookings[Vehicle Type],ncr_ride_bookings[Date].[Month],
+"vehicle type booking frequency",countrows(ncr_ride_bookings),
+"vehicle type booking value",sum(ncr_ride_bookings[Booking Value]),
+"Distance Covered",SUM(ncr_ride_bookings[Ride Distance]))
+
+
+premier sedan = CALCULATETABLE (
+    SUMMARIZE(ncr_ride_bookings,ncr_ride_bookings[Vehicle Type],ncr_ride_bookings[Pickup Location],ncr_ride_bookings[Date].[Month],
+"premier sedan booking frequency",countrows(ncr_ride_bookings),
+"premier sedan booking value",sum(ncr_ride_bookings[Booking Value]),
+"premier sedan Distance Covered",SUM(ncr_ride_bookings[Ride Distance])),
+ncr_ride_bookings[Vehicle Type]="premier sedan",
+ncr_ride_bookings[Cancelled Rides by Customer]=0
+)
+
+
+frequency payment method = CALCULATETABLE (
+    SUMMARIZE (
+        ncr_ride_bookings,
+        ncr_ride_bookings[Date].[Month],
+        ncr_ride_bookings[Payment Method],
+        "Payment Method Count", COUNTROWS ( ncr_ride_bookings ),
+        "Total Booking Value",FORMAT( SUM ( ncr_ride_bookings[Booking Value] ), "$#,##0")
+    ))
+    `,
+sourceCodeLink: 'https://app.powerbi.com/groups/me/reports/439665e3-e475-4a07-975f-5ce805d07eb3/68a5d7b05a32e8307015?experience=power-bi',
+  },
+    
 ];
 
 const blogPosts: BlogPost[] = [
